@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Great Johnson Gym | Management System</title>
+  <style>
+    :root {
+      --black: #151515;
+      --gold: #b88b42;
+      --orange: #ed7628;
+      --white: #fff;
+      --background: #f4f4f4;
+      --muted: #777;
+      --border: #e8e8e8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--background);
+      color: var(--black);
+    }
+
+    .sidebar {
+      width: 245px;
+      background: var(--black);
+      color: white;
+      position: fixed;
+      inset: 0 auto 0 0;
+      padding: 24px 16px;
+    }
+
+    .brand {
+      text-align: center;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #393939;
+    }
+
+    .brand img {
+      width: 105px;
+      height: 105px;
+      object-fit: contain;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .brand h2 {
+      font-size: 17px;
+      margin: 12px 0 4px;
+    }
+
+    .brand p {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    .nav-label {
+      color: #999;
+      font-size: 10px;
+      margin: 26px 10px 10px;
+      letter-spacing: 1.5px;
+    }
+
+    .nav-item {
+      display: block;
+      width: 100%;
+      padding: 13px 12px;
+      margin: 4px 0;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: #ddd;
+      text-align: left;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: var(--gold);
+      color: white;
+    }
+
+    .main {
+      margin-left: 245px;
+      padding: 28px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 28px;
+    }
+
+    .topbar h1 {
+      font-size: 25px;
+      margin: 0 0 6px;
+    }
+
+    .topbar p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .admin {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 12px;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .section {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .section h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .section > p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: 0;
+      background: var(--black);
+      color: white;
+      border-radius: 7px;
+      padding: 12px 17px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .btn.gold { background: var(--gold); }
+    .btn.orange { background: var(--orange); }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .price {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .price h4 { margin: 0 0 8px; }
+    .price strong { font-size: 22px; color: var(--gold); }
+    .price p { color: var(--muted); font-size: 12px; }
+
+    .notice {
+      background: #fff8ed;
+      border-left: 4px solid var(--orange);
+      padding: 13px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 15px;
+    }
+
+    .coming {
+      display: none;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 15px 0;
+    }
+
+    @media (max-width: 1000px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .sidebar {
+        position: static;
+        width: 100%;
+        padding: 15px;
+      }
+
+      .brand img { width: 75px; height: 75px; }
+      .nav-label { margin-top: 15px; }
+      .main { margin: 0; padding: 18px; }
+      .cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .card { padding: 14px; }
+      .card h2 { font-size: 20px; }
+      .pricing { grid-template-columns: 1fr; }
+      .topbar h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="logo.png" alt="Great Johnson Gym logo">
+      <h2>GREAT JOHNSON</h2>
+      <p>GYM & FITNESS</p>
+    </div>
+
+    <div class="nav-label">MAIN MENU</div>
+    <button class="nav-item active" onclick="showSection('dashboard')">Dashboard</button>
+    <button class="nav-item" onclick="showSection('members')">Members</button>
+    <button class="nav-item" onclick="showSection('payments')">Payments</button>
+    <button class="nav-item" onclick="showSection('attendance')">Attendance</button>
+    <button class="nav-item" onclick="showSection('reports')">Reports</button>
+
+    <div class="nav-label">SYSTEM</div>
+    <button class="nav-item" onclick="showSection('settings')">Settings</button>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1 id="page-title">Dashboard</h1>
+        <p>Great Johnson Gym & Fitness Management System</p>
+      </div>
+      <div class="admin">Administrator</div>
+    </div>
+
+    <div id="dashboard" class="page">
+      <div class="cards">
+        <div class="card">
+          <p>Total Members</p>
+          <h2>—</h2>
+        </div>
+        <div class="card">
+          <p>Active Members</p>
+          <h2>—</h2>
+        </div>
+        <div class="card">
+          <p>Expired Memberships</p>
+          <h2>—</h2>
+        </div>
+        <div class="card">
+          <p>Revenue This Month</p>
+          <h2>₵—</h2>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Welcome to your gym management system</h3>
+        <p>
+          Manage registrations, members, payments, attendance and membership
+          renewals from one place.
+        </p>
+        <div class="actions">
+          <button class="btn gold" onclick="showSection('members')">Manage Members</button>
+          <button class="btn orange" onclick="showSection('payments')">Record Payments</button>
+          <button class="btn" onclick="showSection('attendance')">View Attendance</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Membership Pricing</h3>
+        <p>Current gym charges</p>
+        <div class="pricing">
+          <div class="price">
+            <h4>Registration</h4>
+            <strong>₵100</strong>
+            <p>Includes the first 30 days of access.</p>
+          </div>
+          <div class="price">
+            <h4>Monthly Renewal</h4>
+            <strong>₵80</strong>
+            <p>30 days for registered members.</p>
+          </div>
+          <div class="price">
+            <h4>Daily Renewal</h4>
+            <strong>₵9</strong>
+            <p>One day for registered members.</p>
+          </div>
+        </div>
+        <div class="notice">
+          Non-registered visitors pay ₵20 for one-day walk-in access.
+          Inactive members will not be charged for periods they do not attend.
+        </div>
+      </div>
+    </div>
+
+    <div id="members" class="page coming">
+      <h3>Members</h3>
+      Member registration, profiles, membership status and inactive-member records will appear here.
+    </div>
+
+    <div id="payments" class="page coming">
+      <h3>Payments</h3>
+      Registration fees, monthly renewals, daily renewals and visitor payments will appear here.
+    </div>
+
+    <div id="attendance" class="page coming">
+      <h3>Attendance</h3>
+      Member check-ins and daily attendance records will appear here.
+    </div>
+
+    <div id="reports" class="page coming">
+      <h3>Reports</h3>
+      Revenue reports, membership reports and attendance summaries will appear here.
+    </div>
+
+    <div id="settings" class="page coming">
+      <h3>Settings</h3>
+      Administrator and staff account settings will appear here.
+    </div>
+  </main>
+
+  <script>
+    function showSection(sectionId) {
+      document.querySelectorAll('.page').forEach(page => {
+        page.style.display = 'none';
+      });
+
+      document.getElementById(sectionId).style.display = 'block';
+
+      document.querySelectorAll('.nav-item').forEach(button => {
+        button.classList.remove('active');
+      });
+
+      const titles = {
+        dashboard: 'Dashboard',
+        members: 'Members',
+        payments: 'Payments',
+        attendance: 'Attendance',
+        reports: 'Reports',
+        settings: 'Settings'
+      };
+
+      document.getElementById('page-title').textContent = titles[sectionId];
+
+      const buttons = document.querySelectorAll('.nav-item');
+      buttons.forEach(button => {
+        if (button.getAttribute('onclick').includes(sectionId)) {
+          button.classList.add('active');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
