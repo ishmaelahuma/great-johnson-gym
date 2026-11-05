@@ -239,7 +239,47 @@
 </head>
 
 <body>
+  <div id="login-screen" style="
+  position:fixed;
+  inset:0;
+  background:#111;
+  z-index:9999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial,sans-serif;
+">
+  <form id="login-form" style="
+    background:#222;
+    padding:35px;
+    border-radius:12px;
+    width:320px;
+    color:white;
+  ">
+    <h2 style="text-align:center;">GREAT JOHNSON</h2>
+    <p style="text-align:center;">GYM & FITNESS</p>
 
+    <label>Email address</label>
+    <input id="login-email" type="email" required
+      style="width:100%;padding:12px;margin:10px 0;box-sizing:border-box;">
+
+    <label>Password</label>
+    <input id="login-password" type="password" required
+      style="width:100%;padding:12px;margin:10px 0;box-sizing:border-box;">
+
+    <button type="submit" style="
+      width:100%;
+      padding:12px;
+      background:#f58220;
+      color:white;
+      border:0;
+      cursor:pointer;
+      font-weight:bold;
+    ">LOGIN</button>
+
+    <p id="login-error" style="color:#ff7777;"></p>
+  </form>
+</div>
   <aside class="sidebar">
     <div class="brand">
       <img src="logo.png.jpeg" alt="Great Johnson Gym logo">
@@ -391,3 +431,32 @@ const gymsupabase = window.supabase.createClient(
   );
 console.log('Supabase client ready:', !!gymsupabase);
 window.gymClient = gymsupabase;
+    const loginForm = document.getElementById('login-form');
+
+loginForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const errorMessage = document.getElementById('login-error');
+
+    errorMessage.textContent = 'Signing in...';
+
+    const { data, error } = await gymsupabase.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        errorMessage.textContent = error.message;
+        return;
+    }
+
+    document.getElementById('login-screen').style.display = 'none';
+});
+
+gymsupabase.auth.getSession().then(({ data }) => {
+    if (data.session) {
+        document.getElementById('login-screen').style.display = 'none';
+    }
+});
